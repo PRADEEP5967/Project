@@ -1,0 +1,23 @@
+@model WebApplication1.DTOs.Authentication.TwoFactorRequest
+@{
+    ViewData["Title"] = "Two-factor authentication";
+}
+<div class="container py-5" style="max-width: 480px">
+    <h2 class="mb-4">Enter verification code</h2>
+    <form asp-action="TwoFactor" method="post">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="Provider" type="hidden" />
+        <div class="mb-3">
+            <label asp-for="Code" class="form-label">Verification code</label>
+            <input asp-for="Code" class="form-control" autocomplete="one-time-code" inputmode="numeric" />
+            <span asp-validation-for="Code" class="text-danger"></span>
+        </div>
+        <div class="form-check mb-3">
+            <input asp-for="RememberMe" class="form-check-input" />
+            <label asp-for="RememberMe" class="form-check-label">Remember this browser</label>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Verify</button>
+    </form>
+</div>
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }
